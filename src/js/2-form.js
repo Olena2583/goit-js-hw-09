@@ -1,5 +1,5 @@
 `use strict`;
-let formData = { email: '', message: '' };
+const formData = { email: '', message: '' };
 
 const STORAGE_KEY = 'feedback-form-state';
 
@@ -9,14 +9,16 @@ const messageInput = form.elements['message'];
 
 function onFormInput(event) {
   formData[event.target.name] = event.target.value;
-
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 function populateFormData() {
   const savedData = localStorage.getItem(STORAGE_KEY);
   if (savedData) {
-    formData = JSON.parse(savedData);
+    const savedFormData = JSON.parse(savedData);
+
+    formData.email = savedFormData.email || '';
+    formData.message = savedFormData.message || '';
     emailInput.value = formData.email;
     messageInput.value = formData.message;
   }
@@ -33,7 +35,8 @@ function onFormSubmit(event) {
   console.log(formData);
 
   form.reset();
-  formData = { email: '', message: '' };
+  formData.email = '';
+  formData.message = '';
   localStorage.removeItem(STORAGE_KEY);
 }
 

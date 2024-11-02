@@ -87,23 +87,6 @@ const galleryMarkup = images
   .join('');
 
 galleryContainer.innerHTML = galleryMarkup;
-galleryContainer.addEventListener('click', event => {
-  event.preventDefault();
-});
-galleryContainer.addEventListener('click', event => {
-  const isImageEl = event.target.classList.contains('gallery-image');
-  if (!isImageEl) {
-    return;
-  }
-
-  const originalImageSrc = event.target.dataset.source;
-  const instance = basicLightbox.create(`
-    <img src="${originalImageSrc}" width="800" height="600">
-  `);
-
-  instance.show();
-});
-
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
